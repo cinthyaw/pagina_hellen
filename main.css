@@ -22,7 +22,7 @@
   top:100px;
 }
 
-.jumbotron h1 {
+.jumbotron h1, .titulo{
   color: #fff;
   font-size: 48px;  
   font-family: 'Shift', sans-serif;
@@ -76,5 +76,9 @@
 
 .img_peq{
     border: 1px solid #009ae0;
+}
 
+.fondo_quienes{
+  background-color: #009ae0;
+  text-shadow: 0 1px 8px;
 }

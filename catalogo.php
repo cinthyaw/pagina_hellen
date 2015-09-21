@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
-  <link rel="stylesheet" href="main.css">
-
-</head>
-
-<body>
-  <div class="container">
   <?php
   include_once "includes/header.php";
   ?>
@@ -103,7 +90,3 @@
   <?php
   include_once "includes/footer.php";
   ?>
-</div>
-
-</body>
-</html>
