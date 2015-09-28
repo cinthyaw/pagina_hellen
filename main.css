@@ -49,36 +49,80 @@
 }
 
 .neighborhood-guides{
-    background-color:#efefef;
-    border-bottom: 1px solid #dbdbdb;
-    }
-    
+  background-color:#efefef;
+  border-bottom: 1px solid #dbdbdb;
+}
+
 .neighborhood-guides h2{
-    color:#393c3d;
-    font-size: 24px;
-    }
-    
+  color:#393c3d;
+  font-size: 24px;
+}
+
 .neighborhood-guides p{
-    font-size: 15px;
-    margin-bottom: 13px;
-    }
+  font-size: 15px;
+  margin-bottom: 13px;
+}
 
 .menu{
-    margin-top: 6em;
+  margin-top: 6em;
 
 }
 
 
 .img_magic{
-    border: 1px solid #009ae0;
-    padding: 10px;
+  border: 1px solid #009ae0;
+  padding: 10px;
 }
 
 .img_peq{
-    border: 1px solid #009ae0;
+  border: 1px solid #009ae0;
 }
 
 .fondo_quienes{
   background-color: #009ae0;
   text-shadow: 0 1px 8px;
+}
+
+// Class
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.detalles {
+  background: #efefef;
+}
+
+.detalles .list-group-item {
+  background: #efefef;
+}
+
+.cotizar-btn {
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+h3.principal {
+  text-shadow: 0 1px 8px #777;
+    background-color: #009BDD;
+    padding: 5px;
+    color: #fff;
+    box-shadow: #ccc 0 3px 10px;
+    font-family: 'Shift', sans-serif;
+}
+
+.listado h3 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.listado .descripcion {
+  text-overflow: ellipsis;
+  height: 120px;
+  overflow: hidden;
 }
