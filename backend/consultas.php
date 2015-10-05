@@ -33,7 +33,13 @@ class Consultas {
 
 		if (is_numeric($from)) {
 
-			$result = mysqli_query($this->link, "SELECT * FROM productos LIMIT $from, ".($pageSize));
+			$query = "SELECT p.*, c.descripcion AS categoria
+					  FROM productos AS p
+					  JOIN categorias AS c
+					  ON p.categoria_id = c.id
+					  LIMIT $from, ".($pageSize);
+
+			$result = mysqli_query($this->link, $query);
 
 			return mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -57,11 +63,16 @@ class Consultas {
 
 	public function getProductosByCategoria($catId, $from, $pageSize) {
 
-		
-
 		if (is_numeric($from) && is_numeric($catId)) {
 
-			$result = mysqli_query($this->link, "SELECT * FROM productos WHERE categoria_id = $catId LIMIT $from, ".($pageSize));
+			$query = "SELECT p.*, c.descripcion AS categoria
+					  FROM productos AS p
+					  JOIN categorias AS c
+					  ON p.categoria_id = c.id
+					  WHERE p.categoria_id = $catId
+					  LIMIT $from, ".($pageSize);
+
+			$result = mysqli_query($this->link, $query);
 
 			return mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -90,7 +101,13 @@ class Consultas {
 	public function getProductoById($id) {
 
 		if (is_numeric($id)) {
-			$result = mysqli_query($this->link, "SELECT * FROM productos WHERE id = $id");
+
+			$query = "SELECT p.*, c.descripcion AS categoria
+					  FROM productos AS p
+					  JOIN categorias AS c
+					  ON p.categoria_id = c.id
+					  WHERE p.id = $id";
+			$result = mysqli_query($this->link, $query);
 
 			return mysqli_fetch_assoc($result);
 		}
@@ -111,6 +128,82 @@ class Consultas {
 			return null;
 		}
 
+	}
+
+	public function getDetallesProducto($prodId) {
+
+		if (is_numeric($prodId)) {
+
+			$query = "SELECT * FROM productos_detalles WHERE producto_id = $prodId";
+
+			$result = mysqli_query($this->link, $query);
+
+			return mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+		}
+
+		return null;
+	}
+
+	public function getUsuarios() {
+
+		$query = "SELECT * FROM usuarios";
+
+		$result = mysqli_query($this->link, $query);
+
+		return mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	}
+
+	public function getAllProductosYCategoria() {
+
+		$query = "SELECT p.*, c.descripcion AS categoria
+				  FROM productos AS p
+				  JOIN categorias as c
+				  ON p.categoria_id = c.id";
+
+		$result = mysqli_query($this->link, $query);
+
+		return mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	}
+
+	public function insertCategoria($descripcion) {
+
+		$query = "SELECT COUNT(*) AS total FROM categorias WHERE descripcion='$descripcion'";
+
+		$result = mysqli_query($this->link, $query);
+		
+		$qty = mysqli_fetch_assoc($result);
+
+		if ($qty['total'] == 0) {
+			$insertQuery = "INSERT INTO categorias(descripcion) VALUES('$descripcion')";
+			mysqli_query($this->link, $insertQuery);
+		}
+
+	}
+
+	public function deleteProductos() {
+		$query = "TRUNCATE TABLE productos";
+		mysqli_query($this->link, $query);
+	}
+
+	public function insertProducto($nombre, $descripcion, $categoria, $imagen) {
+
+		$query = "SELECT * FROM categorias WHERE descripcion='$categoria'";
+
+		$result = mysqli_query($this->link, $query);
+
+		$categoriaSeleccionada = mysqli_fetch_assoc($result);
+
+		$categoriaId = $categoriaSeleccionada['id'];
+
+		if ($categoriaId) {
+
+			$queryProducto = "INSERT INTO productos(categoria_id, nombre, descripcion, imagen)
+						  	  VALUES ($categoriaId, '$nombre', '$descripcion', '$imagen')";
+			mysqli_query($this->link, $queryProducto);
+		}
 	}
 
 	function __destruct() {

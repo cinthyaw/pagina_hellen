@@ -19,14 +19,14 @@ include_once "backend/params.php";
   <div class="container">
 <div class="row">
       <div class="nav">
-        <a class="pull-left" href="index.php"><img src="<?=ROOT_PATH?>img/logo.png"></a>
+        <a class="pull-left" href="<?=ROOT_PATH?>"><img src="<?=ROOT_PATH?>img/logo.png"></a>
 
         <ul class="pull-right menu">
-         <li><a href="index.php">Inicio</a></li>
-         <li><a href="quienes-somos.php">Qui&eacutenes Somos</a></li>
-         <li><a href="catalogo">Catal&oacutego</a></li>
-         <li><a href="#">Servicios</a></li>
-         <li><a href="contacto.php">Contacto</a></li>
+         <li><a href="<?=ROOT_PATH?>">Inicio</a></li>
+         <li><a href="<?=ROOT_PATH?>quienes-somos">Qui&eacutenes Somos</a></li>
+         <li><a href="<?=ROOT_PATH?>catalogo">Catal&oacutego</a></li>
+         <li><a href="<?=ROOT_PATH?>servicios">Servicios</a></li>
+         <li><a href="<?=ROOT_PATH?>contacto">Contacto</a></li>
        </ul>
      </div>
    </div>

@@ -9,5 +9,9 @@ define("PASS", "");
 define("ROOT_PATH", "/pagina_hellen/");
 
 //PAGINATION
-define("PAGE_SIZE", 3);
+define("PAGE_SIZE", 16);
+
+
+//IMAGE BASE URL
+define("IMAGE_BASE", "http://www.hitpromo.net/imageManager/show/");
 

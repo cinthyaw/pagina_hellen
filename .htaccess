@@ -1,7 +1,12 @@
 RewriteEngine On
 
 # internally rewrite "/catalogo/xxx" to "/section.php?id=xxx"
+RewriteRule ^quienes-somos quienes-somos.php [L]
+RewriteRule ^servicios servicios.php [L]
+RewriteRule ^contacto contacto.php [L]
+RewriteRule ^catalogo/([0-9]+)/(.*)/detalle/([0-9]+)/(.*)$ detalle.php?id=$1&prod=$3 [L]
 RewriteRule ^catalogo/([0-9]+)/(.*)/([0-9]+)$ catalogo.php?id=$1&from=$3 [L] #paginador
 RewriteRule ^catalogo/([0-9]+)/(.*)$ catalogo.php?id=$1 [L]
 RewriteRule ^catalogo(.*)/from/([0-9]+) catalogo.php?from=$2 [L]
 RewriteRule ^catalogo(.*)$ catalogo.php [L]
+

@@ -19,6 +19,7 @@
   if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $productos = $db->getProductosbyCategoria($_GET['id'], $from, PAGE_SIZE);
     $total = $db->getProductosbyCategoriaCount($_GET['id']);
+    $categoriaSeleccionada = $db->getCategoriaById($_GET['id']);
   }
   else {
     $productos = $db->getProductos($from, PAGE_SIZE);
@@ -34,13 +35,20 @@
     <h3 class="principal">Cat&aacute;logo de productos</h3>
     <div class="row">
       <div class="col-md-4">
-       
+       <?php
+       if (!isset($_GET['id'])) {
+        $selected = 0;
+       }
+       else {
+        $selected = is_numeric($_GET['id']) ? $_GET['id'] : 0;
+       }
+       ?>
         <ul class="list-group">
-          <li class="list-group-item active"><a href="<?=ROOT_PATH?>catalogo">Todas las categor&iacute;as</a></li>
+          <a class="list-group-item <?=$selected == 0 ? 'active' : '' ?>" href="<?=ROOT_PATH?>catalogo">Todas las categor&iacute;as</a>
           <?php
           foreach($categorias as $cat) {
           ?>
-            <li class="list-group-item"><a href="<?=ROOT_PATH?>catalogo/<?=$cat['id']?>/<?=$cat['descripcion']?>"><?=$cat['descripcion']?></a></li>
+            <a class="list-group-item <?=$selected == $cat['id'] ? 'active' : '' ?>" href="<?=ROOT_PATH?>catalogo/<?=$cat['id']?>/<?=$cat['descripcion']?>"><?=$cat['descripcion']?></a>
           <?php
           }
           ?>
@@ -48,9 +56,14 @@
       </div>
       <div class="col-md-8">
         <ol class="breadcrumb">
-          <li><a href="catalogo.php">Todas las categor&iacute;as</a></li>
-          <li><a href="#">Categor&iacute;a seleccionada</a></li>
-          <li class="active">Item seleccionado</li>
+          <li><a href="<?=ROOT_PATH?>catalogo">Todas las categor&iacute;as</a></li>
+          <?php
+          if (isset($categoriaSeleccionada)) {
+          ?>
+          <li class="active"><?=$categoriaSeleccionada['descripcion']?></li>
+          <?php
+          }
+          ?>
         </ol>
         <p>
         <?php
@@ -71,6 +84,7 @@
 
           <?php
           foreach ($productos as $prod) {
+
             $descripcion = $prod['descripcion'];
             if (sizeof($descripcion) > 100) {
               $descripcion = substr($descripcion, 0, 97).'...';
@@ -78,11 +92,11 @@
           ?>
             <div class="col-sm-6 col-md-4">
               <div class="thumbnail">
-                <img src="<?=$prod['imagen']?>" alt="<?=$prod['nombre']?>">
+                <img src="<?=IMAGE_BASE.'200/'.$prod['imagen']?>" alt="<?=$prod['nombre']?>">
                 <div class="caption">
                   <h3><?=$prod['nombre']?></h3>
                   <p class="descripcion"><?=$prod['descripcion']?></p>
-                  <p><a href="detalle.php" class="btn btn-primary" role="button">Ver m&aacute;s</a> </p>
+                  <p><a href="<?=ROOT_PATH?>catalogo/<?=$prod['categoria_id']?>/<?=$prod['categoria']?>/detalle/<?=$prod['id']?>/<?=$prod['nombre']?>" class="btn btn-primary" role="button">Ver m&aacute;s</a> </p>
                 </div>
               </div>
             </div>
@@ -98,13 +112,9 @@
         ?>
           <nav>
             <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
               <?php
               $i = 0;
+              //$current = @@
               while ($i < $pagesNumber) {
                 if (isset($_GET['id'])) {
                   $url = 'catalogo/'.$_GET['id'].'/categoria/'.($i * PAGE_SIZE);
@@ -117,12 +127,7 @@
               <?php
               $i++;
               }
-              ?>
-              <li>
-                <a href="<?=$next?>" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
+              ?>              
             </ul>
           </nav>
         <?php
