@@ -1,8 +1,15 @@
     <?php
+    include_once "backend/params.php";
+    include_once "backend/consultas.php";
     include_once "includes/header.php";
+
+    $db = new Consultas();
+
+    $destacados = $db->getProductosDestacados();
+
     ?>
 
-   <div class="row">
+    <div class="row">
      <div class="jumbotron">
 
       <h1>Articulos Promocionales</h1>
@@ -14,33 +21,39 @@
   <div class="row">
     <div class="neighborhood-guides">
 
-      
-
       <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-          <h2>Nuestros Productos</h2>
-          <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-          <div class="col-md-4">
-            <div class="thumbnail">
-              <img class="img_peq" src="http://www.frugalcouponliving.com/wp-content/uploads/2014/09/Screen-Shot-2014-09-08-at-10.57.42-AM.png" >
+        <div class="col-md-12">
+
+          <div class="row">
+
+            <div class="col-sm-8">
+              <div class="texto-margen"><h2>Productos Destacados</h2>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+              </div>
+              <?php
+              foreach ($destacados as $d) {
+                ?>
+                <div class="col-sm-4">
+                  <div class="thumbnail">
+                    <a href="<?=ROOT_PATH?>catalogo/<?=$d['categoria_id']?>/<?=$d['categoria']?>/detalle/<?=$d['id']?>/<?=$d['nombre']?>"><img class="img_peq" src="<?=IMAGE_BASE.'200/'.$d['imagen']?>" ></a>
+                  </div>
+                </div>
+                <?php
+              }
+              ?>
+              
             </div>
-            <div class="thumbnail">
-              <img class="img_peq" src="img/bolso.png" >
+            <div class="col-md-4">
+             <div class="thumbnail">
+              <img class="img_magic" src="img/magic.png" >
+              <div class="caption">
+                
+               
+              </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="thumbnail">
-              <img class="img_peq" src="img/articulos.png" >
-            </div>
-            <div class="thumbnail">
-              <img  class="img_peq" src="img/vaso.png" >
-            </div>
-          </div>
-          <div class="col-md-4">
-           <div class="thumbnail">
-            <img class="img_magic" src="img/magic.png" >
           </div>
         </div>
+
       </div>
     </div>
   </div>

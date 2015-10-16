@@ -1,4 +1,3 @@
-
 <?php
   include_once "backend/params.php";
   include_once "backend/consultas.php";
@@ -63,7 +62,11 @@
             
 
           </ul>
-          <button type="button" class="btn btn-primary cotizar-btn">Cotizar</button>
+          <form action="<?=ROOT_PATH?>contacto" method="post">
+            <input type="hidden" name="producto" value="<?=$producto['nombre']?>" >
+            <input type="hidden" name="url" value="<?=ROOT_PATH?>catalogo/<?=$producto['categoria_id']?>/<?=$producto['categoria']?>/detalle/<?=$producto['id']?>/<?=$producto['nombre']?>">
+          <input type="submit" class="btn btn-primary cotizar-btn" value="Cotizar">
+        </form>
         </div>
         
         

@@ -6,7 +6,6 @@ error_reporting(0);
 if ($_SERVER['HTTP_REFERER']) {
 
 	if (isset($_POST['usuario']) && isset($_POST['password'])) {
-		echo 'usuario';
 		$db = new Consultas();
 		$usuarios = $db->getUsuarios();
 		$auth = false;

@@ -31,14 +31,19 @@ include_once "includes/header.php";
       <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Tel&eacute;fono">
     </div>
     <div class="form-group">
+      <label for="producto">Producto de inter&eacute;s</label>
+     <input type="text" class="form-control" id="producto" name="producto" placeholder="Producto" value="<?=isset($_POST['producto']) ? addslashes($_POST['producto']) : ''?>">
+    </div>
+    <div class="form-group">
       <label for="mensaje">Mensaje</label>
       <textarea id="mensaje" name="mensaje" placeholder="Mensaje" class="form-control" rows="5"></textarea>
     </div>
     <div class="form-group">
     <div class="col-sm-offset-10 col-sm-2">
-      <button type="submit" class="btn btn-default">Enviar</button>
+      <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
   </div>
+  <input type="hidden" name="url" value="<?=$_POST['url']?>">
   </form>
 
 

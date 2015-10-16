@@ -10,3 +10,11 @@
 .productos {
 	background: #efefef;
 }
+
+.center-check {
+	text-align: center;
+}
+
+.table-bordered td {
+	min-height: 67px;
+}

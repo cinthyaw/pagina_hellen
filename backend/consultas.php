@@ -1,5 +1,20 @@
 <?php
 
+
+if (!function_exists('mysql_fetch_all'))
+{
+	function mysqli_fetch_all($result, $mode) {
+
+		$list = [];
+		while($item = mysqli_fetch_array($result)) {
+			array_push($list, $item);
+		}
+
+		return $list;
+
+	}
+}
+
 class Consultas {
 
 	private $link;
@@ -10,7 +25,6 @@ class Consultas {
 			die('DB Error');
 		}
 	}
-
 
 
 	public function getCategorias() {
@@ -157,10 +171,27 @@ class Consultas {
 
 	public function getAllProductosYCategoria() {
 
-		$query = "SELECT p.*, c.descripcion AS categoria
+		$query = "SELECT p.*, c.descripcion AS categoria, not isnull(d.id_producto) as checked
 				  FROM productos AS p
 				  JOIN categorias as c
-				  ON p.categoria_id = c.id";
+				  ON p.categoria_id = c.id
+				  LEFT JOIN destacados as d
+				  ON d.id_producto = p.id";
+
+		$result = mysqli_query($this->link, $query);
+
+		return mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	}
+
+	public function getProductosDestacados() {
+
+		$query = "SELECT p.*, c.descripcion AS categoria, not isnull(d.id_producto) as checked
+				  FROM productos AS p
+				  JOIN categorias as c
+				  ON p.categoria_id = c.id
+				  JOIN destacados as d
+				  ON d.id_producto = p.id";
 
 		$result = mysqli_query($this->link, $query);
 
@@ -186,6 +217,9 @@ class Consultas {
 	public function deleteProductos() {
 		$query = "TRUNCATE TABLE productos";
 		mysqli_query($this->link, $query);
+
+		$query = "TRUNCATE TABLE destacados";
+		mysqli_query($this->link, $query);
 	}
 
 	public function insertProducto($nombre, $descripcion, $categoria, $imagen) {
@@ -204,6 +238,17 @@ class Consultas {
 						  	  VALUES ($categoriaId, '$nombre', '$descripcion', '$imagen')";
 			mysqli_query($this->link, $queryProducto);
 		}
+	}
+
+	public function guardarDestacados($lista) {
+		$query = "TRUNCATE TABLE destacados";
+		mysqli_query($this->link, $query);
+		foreach ($lista as $item) {
+			$query = "INSERT INTO destacados(id_producto) VALUES($item)";
+			mysqli_query($this->link, $query);
+		}
+		
+
 	}
 
 	function __destruct() {

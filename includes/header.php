@@ -24,7 +24,7 @@ include_once "backend/params.php";
         <ul class="pull-right menu">
          <li><a href="<?=ROOT_PATH?>">Inicio</a></li>
          <li><a href="<?=ROOT_PATH?>quienes-somos">Qui&eacutenes Somos</a></li>
-         <li><a href="<?=ROOT_PATH?>catalogo">Catal&oacutego</a></li>
+         <li><a href="<?=ROOT_PATH?>catalogo">Cat&aacute;logo</a></li>
          <li><a href="<?=ROOT_PATH?>servicios">Servicios</a></li>
          <li><a href="<?=ROOT_PATH?>contacto">Contacto</a></li>
        </ul>

@@ -70,8 +70,11 @@
 
 
 .img_magic{
-  border: 1px solid #009ae0;
   padding: 10px;
+}
+
+.texto-margen {
+  margin-left:20px;
 }
 
 .img_peq{
@@ -125,4 +128,10 @@ h3.principal {
   text-overflow: ellipsis;
   height: 120px;
   overflow: hidden;
+}
+
+.contenido-texto {
+
+
+
 }
